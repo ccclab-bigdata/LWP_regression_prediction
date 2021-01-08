@@ -6,12 +6,12 @@ fun = @(X) (30+(5*X(:,1)+5).*sin(5*X(:,1)+5)) .* (4+exp(-(2.5*X(:,2)+2.5).^2));
 X = [reshape(gridX1, numel(gridX1), 1) reshape(gridX2, numel(gridX2), 1)];
 rng(1);
 Y = fun(X) + 5 * randn(size(X,1), 1);
-params = lwpparams('GAU', 2, false);
+params = lwpparams('GAU', 2, true);
 [hBest, critBest, results] = lwpfindh(X, Y, params, 'CV');
-params = lwpparams('GAU', 2, false, hBest);
+params = lwpparams('GAU', 2, true, hBest);
 [gridX1, gridX2] = meshgrid(-1:2/50:1, -1:2/50:1);
 Xq = [reshape(gridX1, numel(gridX1), 1) reshape(gridX2, numel(gridX2), 1)];
-[Yq,L] = lwppredict(X, Y, params);
+[Yq,L1] = lwppredict(X, Y, params,Xq);
 Yq = reshape(Yq, size(gridX1));
 %
 figure;

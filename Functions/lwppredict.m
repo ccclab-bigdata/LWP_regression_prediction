@@ -158,10 +158,11 @@ if nargout > 1
     if ~params.safe
         error('Output argument L is not available when params.safe = false.');
     end
-    if ~isempty(Xq)
-        error('Xq should be empty when output argument L is requested.');
-    end
-    [Yq, L] = weightAndPredict(Xtr, Ytr, params, Xtr, weights, failSilently, true);
+%     if ~isempty(Xq)
+%         error('Xq should be empty when output argument L is requested.');
+%     end
+%     [Yq, L] = weightAndPredict(Xtr, Ytr, params, Xtr, weights, failSilently, true);
+    [Yq, L] = weightAndPredict(Xtr, Ytr, params, Xq, weights, failSilently, true);
 else
     if isempty(Xq)
         Yq= weightAndPredict(Xtr, Ytr, params, Xtr, weights, failSilently, true);

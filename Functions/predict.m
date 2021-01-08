@@ -1,10 +1,11 @@
 function [Yq, L] = predict(Xtr, Ytr, Xq, w, nTerms, knnIdx, params, failSilently, r, rDegree, rCoef, XqIsXtr)
 % Calculate coefs and predict response values
-n = size(Xtr, 1);
+n = size(Xtr, 1);       
+nq = size(Xq, 1);
 needL = nargout > 1;
 if needL
-    nq = n;
-    L = zeros(n, n); % Smoothing matrix
+%     nq = n;
+    L = zeros(nq, n); % Smoothing matrix
 else
     if XqIsXtr
         nq = n;
@@ -45,10 +46,11 @@ for i = 1 : nq
         idx = knnIdx(nonZero,i);
     end
     if needL
-        FX = buildDesignMatrix(Xtr(idx,:) - repmat(Xtr(i,:),sum(nonZero),1), [], r);
+%         FX = buildDesignMatrix(Xtr(idx,:) - repmat(Xtr(i,:),sum(nonZero),1), [], r);
+        FX = buildDesignMatrix(Xtr(idx,:) - repmat(Xq(i,:),sum(nonZero),1), [], r);
         FXW = bsxfun(@times, FX, ww)'; %FXW = FX' * diag(ww);
         Z = (FXW * FX) \ FXW;
-        L(i,idx) = Z(1,:);
+        L(i,idx) = Z(1,:);                                                           
     else
         FXnz = FX(idx,:);
         if isOctave
