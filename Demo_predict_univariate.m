@@ -1,7 +1,7 @@
 % Demo
 clear;clc;close all
 
-order=1;  kernel_name='EPA';
+order=2;  kernel_name='GAU';
 fun = @(X) (30+(5*X+5).*sin(5*X+5)) .* (4+exp(-(2.5*X+2.5).^2));
 X= linspace(-3,3,2/0.01)';
 rng(1);
@@ -21,8 +21,10 @@ MSE = lwpeval(X, Y, params, 'VD', Xq, fun(Xq));
 % [hBest, critBest, results] = lwpfindh(Xq, Yq, params, 'CV');
 params = lwpparams(kernel_name, order, false, []);
 params.outer=1;
+% params.safe=false;
+
 Xp=linspace(-5,5,2/0.01)';
-[Yp,Lp] = lwppredict(Xq, Yq, params,Xp);
+[Yp] = lwppredict(X, Y, params,Xp);
 figure;
 plot(Xp,Yp);
 hold on;
