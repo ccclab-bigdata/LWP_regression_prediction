@@ -151,7 +151,7 @@ if params.standardize
 end
 
 if isRequiresL(crit)
-    [Yhat, L] = lwppredict(Xtr, Ytr, params, [], weights, failSilently);
+    [Yhat, L] = lwppredict(Xtr, Ytr, params, Xtr, weights, failSilently);
     if any(isnan(Yhat))
         val = NaN;
         df1 = NaN;

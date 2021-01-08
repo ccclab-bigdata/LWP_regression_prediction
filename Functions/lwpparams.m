@@ -155,4 +155,9 @@ else
         params.safe = safe;
     end
 end
+if (nargin < 9) || isempty(outer)
+params.outer=[];
+else
+ params.outer=1;
+end
 return

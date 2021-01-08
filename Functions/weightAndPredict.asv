@@ -159,7 +159,7 @@ for i = 1 : nq
 end
 if ~isempty(params.outer)
 dis_asc=sort(dist,'ascend');
-params.h=sqrt(dis_asc(10,:));
+params.h=sqrt(dis_asc(20,:));
 else
   params.h=params.h;
 end
